@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-sm-5">
+            <form action="{% url 'add' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                {{form.media}}
+                <input type="submit" value="ADD">
+            </form>
+        </div>
+        <div class="col-sm-7">
+            <h4>Tasks for the day</h4>
+            <table>
+                <tr>
+                    <th>Tasks</th>
+                    <th>Description</th>
+                    <th>How much time?</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+                {% if values %}
+                {% for i in values %}
+                <tr>
+                    <td>{{i.task}}</td>
+                    <td>{{i.description}}</td>
+                    <td>{{i.time}}</td>
+                    {{i.quote}}
+                    <td><img src="http://127.0.0.1:8000/images/{{i.quote}}" alt=""></td>
+                    <td>
+                        <a href="{% url 'update' i.id %}" class="btn btn-info btn-sm">Edit</a>
+                        <a href="#" class="btn btn-success btn-sm">Done</a>
+                        <a href="{% url 'delete' i.id %}" class="btn btn-warning btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h4>No tasks for the day</h4>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
