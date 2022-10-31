@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
         return user_staff
 
     def create_superuser(self, email, password=None):
+        print(email)
         user_admin = self.create_user(
             email,
             password=password,
@@ -48,12 +49,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    email=models.EmailField(max_length=100,unique=True)
+    email=models.EmailField(max_length=100)
     active=models.BooleanField(default=True) #can login
     staff=models.BooleanField(default=True) # cannot make changes
     admin=models.BooleanField(default=True) #superuser- can make changes
     
-    #USERNAME_FIELD = 'email' #username
+    USERNAME_FIELD = 'email' #username
 
     #USER_NAME and password are required by default
     REQUIRED_FIELDS = []
