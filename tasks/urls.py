@@ -6,9 +6,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('register/', views.registerPage, name='register'),
-    path('login/', views.loginPage, name='login'),
+    path('', views.loginPage, name='login'),
     path('logout/',views.logoutUser, name='logout'),
-    path('',views.add,name='add'),
+    path('add/',views.add,name='add'),
     path('delete/<str:pk>/',views.delete,name='delete'),
     path('update/<str:id>/',views.update,name='update')
 ]

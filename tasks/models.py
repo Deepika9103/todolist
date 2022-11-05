@@ -31,28 +31,28 @@ class UserManager(BaseUserManager):
             password=password,
             is_staff=True
         )
-        user_staff.save(using=self._db)
         return user_staff
 
     def create_superuser(self, email, password=None):
-        print(email)
+        #print(email)
         user_admin = self.create_user(
             email,
             password=password,
             is_staff=True,
             is_admin=True
         )
-        user_admin.save(using=self._db)
+        #user_admin.save(using=self._db)
         return user_admin
 
 
 
 
 class User(AbstractUser):
-    email=models.EmailField(max_length=100)
+    username=models.CharField(max_length=100,unique=False)
+    email=models.EmailField(max_length=100,unique=True)
     active=models.BooleanField(default=True) #can login
-    staff=models.BooleanField(default=True) # cannot make changes
-    admin=models.BooleanField(default=True) #superuser- can make changes
+    staff=models.BooleanField(default=False) # cannot make changes
+    admin=models.BooleanField(default=False) #superuser- can make changes
     
     USERNAME_FIELD = 'email' #username
 
@@ -82,7 +82,7 @@ class User(AbstractUser):
     def is_active(self):
         return self.active
 
-    def has_perm(self, perm, obj=None):
+    def has_perm(self, perm, obj=None):#it is used to give access to the person, self will create an instance and then we can give different kind of access  
         return True
 
     def has_module_perms(self, app_label):
@@ -101,3 +101,17 @@ class todo(models.Model):
 
     def __str__(self):
         return self.task
+
+#many to many relationships 
+class Publication(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return title
+
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    public = models.ManyToManyField(Publication)
+
+    def __str(self):
+        return headline

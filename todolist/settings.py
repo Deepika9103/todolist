@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'tasks',
 ]
 
@@ -132,6 +133,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
+#locate the files
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+#it is the single root directoryfrom where the django application will serve the static files in production
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/css')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#LOGIN_REDIRECT_URL = 'add/'

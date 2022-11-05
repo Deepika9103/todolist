@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,27 +7,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
+    <div>
+    {% load crispy_forms_tags %}
     <form action="" method="POST">
         {% csrf_token %}
-        {{form.username.label}}
-        {{form.username}}
-        <br>
-        {{form.email.label}}
+        {{form.email.label}} <br>
         {{form.email}}
         <br>
-        {{form.password.label}}
-        {{form.password}}
+        {{form.password1.label}}<br>
+        {{form.password1}}
         <br>
-        {{form.password2.label}}
+        {{form.password2.label}}<br>
         {{form.password2}}
-        <br>
-        <input type="submit" name="Create User">
-        <a href="{% url 'login' %}">Login</a>
+        <br> <br>
+        {{form.errors}} 
+        <!-- Method2 -->
+        <!-- {% for fm in form %}
+            {{fm.label_tag}} {{fm}} {{fm.errors}}
+        {% endfor %} -->
+        <input type="submit" name="Create User" value="Sign Up" id="button">
+        <p> Already have an account ?<a href="{% url 'login' %}">Login</a></p> 
     </form>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>

@@ -3,7 +3,7 @@ from .models import todo, User
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
 from django.contrib.auth.models import User
-#User=get_user_model()
+User=get_user_model()
 
 #cleaned_data-> it will include a key and value for all its fields, even if the data didnt include a value for some optional fields 
 #eg:- the data dict doesnt include a value for the nick_name field but cleaned_data includes its, with an empty value 
@@ -56,4 +56,4 @@ class todoForm(forms.ModelForm):
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'password2']
+        fields = ['email', 'password1', 'password2']

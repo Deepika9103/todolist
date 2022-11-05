@@ -1,0 +1,44 @@
+body{
+    background-image: url('../images/bg.webp');
+    background-size: cover;
+    margin:0;
+    padding:0;
+}
+
+form{
+    background-color: darkgray;
+    width:300px;
+    border: 15px solid lightgray;
+    border-radius: 20px;
+    text-align: center;
+    height: auto;
+    padding:1%;
+}
+label{
+    font-size: 175%;
+}
+p{
+    font-size: 125%;
+    font-family:Arial, Helvetica, sans-serif
+}
+div{
+    display: flex;
+    justify-content:left;
+    align-items:left;
+    flex-direction: column;
+    margin-top: 10%;
+    margin-left:15%;
+    width: 600px;
+}
+input{
+    height:27px;
+    width:200px;
+    border-radius: 10px;
+}
+#button{
+    text-align:center;
+    width:100px;
+    height:auto;
+    background-color: black;
+    color: white;
+}

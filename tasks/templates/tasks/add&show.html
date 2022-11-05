@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,12 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/addshow.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
+    <div><h1>To Do List</h1></div>
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5" id="details">
             <form action="{% url 'add' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form.as_p}}
@@ -19,7 +22,7 @@
                 <input type="submit" value="ADD">
             </form>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-7" id="show">
             <h4>Tasks for the day</h4>
             <table>
                 <tr>
@@ -35,8 +38,7 @@
                     <td>{{i.task}}</td>
                     <td>{{i.description}}</td>
                     <td>{{i.time}}</td>
-                    {{i.quote}}
-                    <td><img src="http://127.0.0.1:8000/images/{{i.quote}}" alt=""></td>
+                    <td><img src="http://127.0.0.1:8000/images/{{i.quote}}" alt="" height="100" width="100"></td>
                     <td>
                         <a href="{% url 'update' i.id %}" class="btn btn-info btn-sm">Edit</a>
                         <a href="#" class="btn btn-success btn-sm">Done</a>

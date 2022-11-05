@@ -14,36 +14,41 @@ from django.contrib import messages
 #login Page
 def loginPage(request):
     if request.method == "POST":
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        #authenticate is used to verify a set of credentials-> it returns a User object if the credentials are valid
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
-            login(request, user)
-            return redirect('/')
+            #login takes an HttpRequest object and a User object
+            #we use backend so that when in future the same user logs in it fetchs the details
+            login(request, user,backend=None)
+            return redirect('add/')
         else:
-            messages.info(request, 'Username Or password is incorrect')
+            messages.info(request, 'Email Or password is incorrect')
     context={}
     return render(request, 'tasks/index.html', context)
 
 #logout the user
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('/')
 
 #register Page
-def registerPage(request):
+def registerPage(request): 
     form = CreateUserForm()
     if request.method == 'POST':
+        print(request.POST)
         form= CreateUserForm(request.POST)
+        print(form.is_valid())
+        print(form)
         if form.is_valid():
+            print("OP")
             form.save()
-
-            user = form.cleaned_data.get('username')
+            user = form.cleaned_data.get('email')
             messages.success(request, 'Account was created for '+ user)
-
-            return redirect('login')
+            return redirect('add/')
     context={'form':form}
     return render(request, 'tasks/register.html', context)
 
@@ -52,9 +57,11 @@ def add(request):
     if request.method == 'POST':
         fm1=todoForm(request.POST, request.FILES)
         #method 1 to save the data(to save all the data)
+        print('checkkk')
         if fm1.is_valid():
+            print("validdd!!")
             fm1.save()
-            return redirect('/')
+            #return redirect('/')
 
         #method 2 to save the data
         # if fm1.is_valid():
@@ -69,7 +76,7 @@ def add(request):
     else:
         fm1=todoForm()
     values=todo.objects.all()
-    print(dir(values[0].quote))
+    #print(dir(values[0].quote))
     return render(request,'tasks/add&show.html',{'form':fm1,'values':values})
 
 #function to update the info
@@ -86,7 +93,7 @@ def update(request, id):
         print(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            #return redirect('add/')
     #else:
     return render(request,'tasks/update.html',{'info':info})
 
@@ -95,7 +102,7 @@ def delete(request,pk):
     info=todo.objects.get(id=pk)
     if request.method=='POST':
         info.delete()
-        return redirect('/')
+        return redirect('add/')
     context={
         'item':info
     }
